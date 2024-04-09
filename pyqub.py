@@ -118,35 +118,6 @@ class QUB:
         #输出
         def infoOut(self):
             print(self.toString())
-    print('获取附加数据中...')
-
-    rBody = {'userName': 'guest@qubic.li', 'password': 'guest13@Qubic.li', 'twoFactorCode': ''}
-    rHeaders = {'Accept': 'application/json', 'Content-Type': 'application/json-patch+json'}
-    r = requests.post('https://api.qubic.li/Auth/Login', data=json.dumps(rBody), headers=rHeaders)
-    token = r.json()['token']
-    rHeaders = {'Accept': 'application/json', 'Authorization': 'Bearer ' + token}
-    r = requests.get('https://api.qubic.li/Score/Get', headers=rHeaders)
-    networkStat = r.json()
-
-    retstr = '参考数据:\n=================\n'
-    retstr = retstr + '全网算力：' + str(networkStat['estimatedIts']) + '\n'
-    retstr = retstr + '平均分数：' + str(int(networkStat['averageScore'])) + '\n'
-    retstr = retstr + '出块速度：' + str(networkStat['solutionsPerHour']) + '\n'
-    #单位价格
-    crypto_currency = 'qubic-network'
-    destination_currency = 'usd'
-    cg_client = CoinGeckoAPI()
-    prices = cg_client.get_price(ids=crypto_currency, vs_currencies=destination_currency)
-    qubicPrice = prices[crypto_currency][destination_currency]
-    retstr = retstr + '当前价格：' + "{:.8f}".format(qubicPrice) + '\n'
-    #你的预期
-    # retstr = retstr + '每块预期价值:' + "{:.8f}".format(qubicPrice) + '\n'
-    # retstr = retstr + '每日预期块数：' + "{:.8f}".format(qubicPrice) + '\n'
-    # retstr = retstr + '每日预期收益：' + "{:.8f}".format(qubicPrice) + '\n'
-
-    retstr = retstr + "================="
-
-    return retstr
 
 #读出配置
 def CheckConfig(file):
