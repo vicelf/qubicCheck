@@ -26,13 +26,7 @@ import time
 import datetime
 #json解析
 import json
-#币价获取
-try:
-    from pycoingecko import CoinGeckoAPI
-except:
-    print('安装缺失的包-pycoingecko')
-    subprocess.run(['pip','install','pycoingecko'])
-    from pycoingecko import CoinGeckoAPI
+
 
 #global
 checkInv = 300#检测间隔
@@ -124,9 +118,6 @@ class QUB:
         #输出
         def infoOut(self):
             print(self.toString())
-
-#获取追加数据--这个对网络环境好像有点需求，不用为秒啊
-def GetAffixInfo():
     print('获取附加数据中...')
 
     rBody = {'userName': 'guest@qubic.li', 'password': 'guest13@Qubic.li', 'twoFactorCode': ''}
