@@ -9,3 +9,6 @@ python ./pyqub.py
 或
 python3 ./pyqub.py
 在开始之前检查config.cfg内容，填写一些必须项
+
+有时候好像会发送邮件时卡住 不知道啥情况
+我也不熟python~别问我了

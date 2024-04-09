@@ -15,6 +15,8 @@ except:
     print('安装缺失的包-urllib3')
     subprocess.run(['pip','install','urllib3'])
     import requests
+import urllib.request
+from urllib.request import Request
 #正则
 import re
 #邮件
