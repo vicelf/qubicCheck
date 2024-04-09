@@ -224,20 +224,24 @@ while(True):
     #do some thing
     print('新一轮检测开始于' + CurTimeStr())
     newqub = QUB()
+    anyFailed = False#当任意一次获取失败，不会更新oldQUB
     if(checkrqiner):
-        if(not newqub.getFromRQiner(wallet)):
-            pass
+        if(newqub.getFromRQiner(wallet)):
+            anyFailed = True
     if(checkofficial):
-        if(not newqub.getFromOfficialToken(officialuser,officialpass)):
-            pass
+        if(newqub.getFromOfficialToken(officialuser,officialpass)):
+            anyFailed = True
     #验证
-    bChangeAndSend = False
-    if ((newqub.solutions>oldqub.solutions) or (newqub.solutions_o>oldqub.solutions_o)):
-        #新块被发现
-        SendMail(mailtitle,newqub.toString())
-        bChangeAndSend = True
-    if(not bChangeAndSend):
-        print('本次监测未发现明显变动。')
-    oldqub = newqub
-    oldqub.infoOut()
+    if anyFailed:
+        print('本次有数据获取错误，不做比较')
+    else:
+        bChangeAndSend = False
+        if ((newqub.solutions>oldqub.solutions) or (newqub.solutions_o>oldqub.solutions_o)):
+            #新块被发现
+            SendMail(mailtitle,newqub.toString())
+            bChangeAndSend = True
+        if(not bChangeAndSend):
+            print('本次监测未发现明显变动。')
+        oldqub = newqub
+        oldqub.infoOut()
     print('下次检测于：'+str(int(checkInv))+'秒后...')
