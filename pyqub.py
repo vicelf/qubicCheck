@@ -226,10 +226,10 @@ while(True):
     newqub = QUB()
     anyFailed = False#当任意一次获取失败，不会更新oldQUB
     if(checkrqiner):
-        if(newqub.getFromRQiner(wallet)):
+        if(not newqub.getFromRQiner(wallet)):
             anyFailed = True
     if(checkofficial):
-        if(newqub.getFromOfficialToken(officialuser,officialpass)):
+        if(not newqub.getFromOfficialToken(officialuser,officialpass)):
             anyFailed = True
     #验证
     if anyFailed:
