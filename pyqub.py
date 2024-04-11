@@ -231,6 +231,13 @@ while(True):
     if(checkofficial):
         if(not newqub.getFromOfficialToken(officialuser,officialpass)):
             anyFailed = True
+    #这里还会出现一个bug：当读取网页成功时，也可能读出错误的块数
+    #一般来说这个块数会读少，那么这时候就会导致下次读出的块触发要饭
+    #so，要么我增加一个判断，当读取的块比之前少时，也视为读取失败
+    #这么做唯一的问题在于每个纪元需要重新开一次程序
+    if((newqub.solutions<oldqub.solutions) or (newqub.solutions_o<oldqub.solutions_o)):
+        print('本次获取的数据中块数量低于上次，但也可能是切换纪元，暂时跳过本轮检测')
+        anyFailed = True
     #验证
     if anyFailed:
         print('本次有数据获取错误，不做比较')
